@@ -25,6 +25,7 @@ const RecipeList: React.FC = () => {
             <Text style={tw`text-base font-semibold mt-1`}>{item.name}</Text>
           </TouchableOpacity>
           <Text style={tw`text-xs text-gray-500`}>{item.author}</Text>
+          <Text>231232</Text>
         </View>
       )}
     />

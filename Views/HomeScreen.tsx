@@ -1,11 +1,11 @@
 import React from 'react';
 import { FlatList, Text, StyleSheet, View } from 'react-native';
 import Header from './header';
-import SearchBar from './SearchBar';
+//  import SearchBar from './SearchBar';
 import IngredientList from './IngredientList';
 import RecipeList from './RecipeList';
 import tw from 'twrnc';
-import SearchController from '@/controllers/SearchController';
+import SearchController from '@/controllers/RecipeList';
 
 const HomeScreen = () => {
   return (
@@ -14,7 +14,7 @@ const HomeScreen = () => {
         <>
           <View style={tw`flex-row items-center`}>
             <Header />
-            <SearchBar />
+            {/* <SearchBar /> */}
           </View>
           <Text style={tw`text-xl m-2`}>Mục Lục</Text>
           <IngredientList />

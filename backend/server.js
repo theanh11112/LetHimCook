@@ -1,57 +1,23 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const recipeRoutes = require('./routes/recipeRoutes');
+
 const app = express();
-const port = 3000;
-
-app.use(express.json()); // Middleware để đọc JSON từ request
+app.use(express.json());
 app.use(cors());
-app.use("/images", express.static("public/images"));
 
-// Import danh sách món ăn từ file recipes.js
-const recipes = require("./recipes");
+// Kết nối MongoDB trực tiếp mà không cần biến môi trường
+mongoose.connect("mongodb://127.0.0.1:27017/recipes", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('🔗 Kết nối MongoDB thành công'))
+.catch(err => console.log('❌ Lỗi kết nối:', err));
 
-// Lấy danh sách tất cả công thức món ăn
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-  });
+// Sử dụng routes
+app.use('/api', recipeRoutes);
 
-app.get("/recipes", (req, res) => {
-    res.json(recipes);
-});
-
-// Lấy thông tin chi tiết của một công thức theo ID
-app.get("/recipes/:id", (req, res) => {
-    const recipe = recipes.find(r => r.id === parseInt(req.params.id));
-    if (!recipe) return res.status(404).json({ message: "Không tìm thấy món ăn!" });
-    res.json(recipe);
-});
-
-// Thêm một công thức mới
-app.post("/recipes", (req, res) => {
-    const { name, ingredients, steps } = req.body;
-    if (!name || !ingredients || !steps) {
-        return res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin công thức!" });
-    }
-    const newRecipe = {
-        id: recipes.length + 1,
-        name,
-        ingredients,
-        steps
-    };
-    recipes.push(newRecipe);
-    res.status(201).json(newRecipe);
-});
-
-// Xóa một công thức theo ID
-app.delete("/recipes/:id", (req, res) => {
-    const recipeIndex = recipes.findIndex(r => r.id === parseInt(req.params.id));
-    if (recipeIndex === -1) return res.status(404).json({ message: "Không tìm thấy món ăn!" });
-
-    recipes.splice(recipeIndex, 1);
-    res.json({ message: "Xóa công thức thành công!" });
-});
-
-// Khởi động server
-app.listen(port, () => {
-    console.log(`Server chạy tại http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server chạy tại http://localhost:${PORT}`);
 });

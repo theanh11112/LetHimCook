@@ -20,7 +20,7 @@ const App = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name ="BottomTabNavigator" component={AppNavigator} />
       <Stack.Screen name="RecipeList" component={RecipeList} options={{ title: 'Danh Sách Món Ăn' }} />
-      <Stack.Screen name="Details" component={Details} options={{ title: 'Chi Tiết Món Ăn' }} />
+      {/* <Stack.Screen name="Details" component={Details} options={{ title: 'Chi Tiết Món Ăn' }} /> */}
     </Stack.Navigator>
   );
 };
