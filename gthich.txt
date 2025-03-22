@@ -1,0 +1,11 @@
+recipceControllers.ts fake data cho trang trung gian do ko call đc api
+ingredientsData.ts sắp vô dụng
+reModel cx fake data
+bottomtab thanh công cụ
+dh vô dụng
+detail(view) màn hình chi tiết món an
+head phần head mấy nx làm draw
+home màn hình chính 
+ingreList laf phan nguyenlieu
+recipelist laf mon an moi len song
+searchview la phan trung gian
