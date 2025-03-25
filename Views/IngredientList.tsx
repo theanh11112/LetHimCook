@@ -17,7 +17,7 @@ const IngredientList = () => {
         <View style={tw`w-[${width / 2 - 22}px] items-center m-1.5`}>
           <View style={tw`relative rounded-lg overflow-hidden`}>
             <Image source={item.image} style={tw`w-47 h-33 rounded-lg`} />
-            <Text style={tw`absolute bottom-0 left-0 bg-black/27 text-white text-base font-bold p-1 w-full text-center`}>
+            <Text style={tw`absolute bottom-0 left-0  text-white text-base font-bold p-1 w-full p-2 text-left`}>
               {item.name}
             </Text>
           </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, Text, StyleSheet, View } from 'react-native';
 import Header from './header';
-//  import SearchBar from './SearchBar';
+
 import IngredientList from './IngredientList';
 import RecipeList from './RecipeList';
 import tw from 'twrnc';
@@ -14,11 +14,12 @@ const HomeScreen = () => {
         <>
           <View style={tw`flex-row `}>
             <Header />
-            <Text style={tw` text-black text-2xl p-2 items-cent mt-2`}>Tìm kiếm</Text>
+            <Text style={tw` text-black text-2xl p-2 items-center mt-2`}>Tìm kiếm</Text>
+            <Text style={tw`text-xl p-2 mt-3 ml-auto`}>🔔</Text>
           </View>
 
           <SearchController />
-          <Text style={tw`text-xl m-2`}>Nguyên Liệu Phổ Biến</Text>
+          <Text style={tw`text-xl m-2 `}>Nguyên Liệu Phổ Biến</Text>
           <IngredientList />
           <Text style={tw`mt-2 text-xl`}>Món ăn mới lên sóng</Text>
           <RecipeList/>

@@ -6,6 +6,7 @@ import Details from '../Views/Details';
 import TG from '../Views/SearchView';
 import LG from '../Views/Login';
 import SU from '../Views/SignUp';
+import HomeLogin from './HomeLogin'; 
 
 // Tạo Stack Navigator
 const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ export default class TabHome extends Component {
                 <Stack.Screen name="TG" component={TG} />
                 <Stack.Screen name="LG" component={LG} />
                 <Stack.Screen name="Su" component={SU} />
+                <Stack.Screen name="HomeLog" component={HomeLogin} />
             </Stack.Navigator>
         );
     }

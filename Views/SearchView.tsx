@@ -21,7 +21,7 @@ const SearchView: React.FC = () => {
       `Mô tả: ${recipe.ingredients.join(', ')}\nTác giả: ${recipe.author}`,
       [{ text: 'Đóng' }]
     );
-    navigation.navigate('Details', { recipe }); // Corrected route name
+    navigation.navigate('Details', { recipe });
   };
 
   return (

@@ -7,7 +7,8 @@ import tw from 'twrnc';
 import { RootStackParamList } from '@/types';
 import { getUserData } from '../models/authHelper';
 import Login from './Login';
-const API_BASE_URL = 'http://192.168.0.103:3000/api';
+
+const API_BASE_URL = 'http://192.168.1.165:3000/api';
 
 type SearchViewRouteProp = RouteProp<RootStackParamList, 'RecipeList'>;
 
@@ -18,6 +19,7 @@ const RecipeList: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   type Recipe = {
+    id: number;
     _id: string;
     name: string;
     image: string;
@@ -28,34 +30,18 @@ const RecipeList: React.FC = () => {
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const {token} = await getUserData();
-      if (!token) {
-        navigation.navigate('Login'); // Chuyển hướng đến trang đăng nhập
-      } else {
-        setIsAuthenticated(true);
-         fetchRandomRecipes();
-      }
-    };
+  const handlePressRecipe = (recipe: Recipe) => {
+    navigation.navigate('Details', { recipe: { ...recipe, id: Number(recipe.id) } });
+  };
 
-    checkAuth();
-  }, []);
-
-  if (!isAuthenticated) {
-    return null; // Không render gì nếu chưa đăng nhập
-  }
-
-  // ✅ Hàm lấy danh sách món ăn ngẫu nhiên từ API
   const fetchRandomRecipes = async () => {
     setLoading(true);
     try {
       const response = await axios.get(`${API_BASE_URL}/recipes`);
-      console.log("chanh");
       const randomRecipes = response.data
         .sort(() => 0.5 - Math.random())
         .slice(0, 10)
-        .map((recipe: Recipe) => ({ ...recipe, id: Number(recipe._id) })); // Add 'id' property
+        .map((recipe: Recipe) => ({ ...recipe, id: Number(recipe.id) }));
       setRecipes(randomRecipes);
     } catch (error) {
       console.error('Lỗi khi lấy danh sách công thức:', error);
@@ -64,10 +50,23 @@ const RecipeList: React.FC = () => {
     }
   };
 
-  const handlePressRecipe = (recipe: Recipe) => {
-    // Điều hướng đến trang Details kèm dữ liệu đầy đủ
-    navigation.navigate('Details', { recipe: { ...recipe, id: Number(recipe._id) } });
-  };
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { token } = await getUserData();
+      if (!token) {
+        navigation.navigate('Login');
+      } else {
+        setIsAuthenticated(true);
+        fetchRandomRecipes();
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   if (loading) {
     return <ActivityIndicator size="large" color="blue" />;
@@ -76,17 +75,16 @@ const RecipeList: React.FC = () => {
   return (
     <FlatList
       data={recipes}
-      keyExtractor={(item) => item._id}
+      keyExtractor={(item) => item.id.toString()}
       horizontal
       nestedScrollEnabled={true}
       renderItem={({ item }) => (
         <View style={tw`m-2 items-center`}>
-          {/* Bấm vào hình hoặc tên để điều hướng */}
           <TouchableOpacity onPress={() => handlePressRecipe(item)}>
             <Image source={{ uri: item.image }} style={tw`w-24 h-24 rounded-lg`} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handlePressRecipe(item)}>
-            <Text style={tw`text-base font-semibold mt-1`}>{item.name}</Text>
+            <Text style={tw`text-l mt-1`}>{item.name}</Text>
           </TouchableOpacity>
           <Text style={tw`text-xs text-gray-500`}>{item.author}</Text>
         </View>

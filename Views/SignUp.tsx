@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 
-const API_BASE_URL = 'http://192.168.0.103:3000/api/user';
+const API_BASE_URL = 'http:/192.168.1.165:3000/api/user';
 
 type RootStackParamList = {
   Login: undefined;

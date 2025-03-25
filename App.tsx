@@ -10,7 +10,7 @@ import LoginScreen from './Views/Login';
 import SearchView from './Views/SearchView';
 import { RootStackParamList } from './types'; 
 import HomeScreen from './Views/HomeScreen';
-import TabHome from './navigation/DH';
+import TabHome from './navigation/DH'; 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {

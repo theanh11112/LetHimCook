@@ -7,7 +7,7 @@ const Header = () => {
   const navigation = useNavigation(); // Lấy navigation để điều hướng
 
   return (
-    <View style={tw`my-2`}>
+    <View style={tw``}>
       <TouchableOpacity >
         <Image source={require('../Img/logo.png')} style={tw`w-[50px] h-[50px]`} />
       </TouchableOpacity>

@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types';
 
-const API_BASE_URL = 'http://192.168.0.103:3000/api';
+const API_BASE_URL = 'http://192.168.1.165:3000/api';
 
 const RecipeList = () => {
     const [recipes, setRecipes] = useState([]);

@@ -11,7 +11,7 @@ type RootStackParamList = {
   HomeScreen: undefined; // Điều hướng đến màn hình chính sau khi đăng nhập
 };
 
-const API_BASE_URL = 'http://192.168.0.103:3000/api/user';// Cập nhật URL phù hợp với backend của bạn
+const API_BASE_URL = 'http://192.168.1.165:3000/api/user';// Cập nhật URL phù hợp với backend của bạn
 
 const Login = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();

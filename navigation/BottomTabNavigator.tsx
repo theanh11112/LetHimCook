@@ -1,8 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'; 
-import HomeScreen from '../Views/HomeScreen'; 
-import RecipeScreen from '../Views/RecipeList'; 
+import Favorites from '../Views/FavoriteRecipes'; 
 import login from '../Views/Login';
 import sign from '../Views/SignUp';
 import view from '../Views/SearchView';
@@ -31,11 +30,9 @@ const BottomTabNavigator = () => {
         tabBarInactiveTintColor: 'gray',
         headerShown: false,
         tabBarStyle: { height: 50, paddingBottom: 5 },
-      })}
-    >
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      })}>
       <Tab.Screen name="Tìm kiếm" component={TabHome} />
-      <Tab.Screen name="Kho món ngon" component={RecipeScreen} />
+      <Tab.Screen name="Kho món ngon" component={Favorites} />
       <Tab.Screen name="login" component={login} />
       <Tab.Screen name="sign" component={sign} />
       
