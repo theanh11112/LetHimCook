@@ -33,7 +33,7 @@ const BottomTabNavigator = () => {
         tabBarStyle: { height: 50, paddingBottom: 5 },
       })}
     >
-      
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="Tìm kiếm" component={TabHome} />
       <Tab.Screen name="Kho món ngon" component={RecipeScreen} />
       <Tab.Screen name="login" component={login} />

@@ -22,7 +22,7 @@ exports.loginUser = async (req, res) => {
         // Tạo token JWT
         const token = jwt.sign({ userId: user._id }, "SECRET_KEY", { expiresIn: "1h" });
 
-        res.json({ message: "Đăng nhập thành công", token });
+        res.json({ message: "Đăng nhập thành công", token , user: {username : user.username, userId: user._id}});
     } catch (error) {
         res.status(500).json({ message: "Lỗi server" });
     }

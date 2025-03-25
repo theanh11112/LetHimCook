@@ -8,7 +8,7 @@ import SearchController from '@/controllers/SearchRecipe';
 import axios from 'axios';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'http://192.168.0.103:3000/api';
 
 // Định nghĩa kiểu dữ liệu cho route
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
@@ -82,6 +82,7 @@ const Details: React.FC = () => {
           renderItem={({ item }) => (
             <Text style={tw`px-3 text-xl border-b-2 border-dashed border-orange-400 w-1/2`}>• {item}</Text>
           )}
+          nestedScrollEnabled={true}
         />
 
         {/* Cách làm */}
@@ -97,7 +98,44 @@ const Details: React.FC = () => {
               <Text style={tw`px-3 text-2xl`}>{item}</Text>
             </View>
           )}
+          nestedScrollEnabled={true}
         />
+
+        <View>
+          <Text style={tw`text-black text-l mr-2 px-2 mt-2`}>Bày tỏ cảm xúc của bạn</Text>
+           <View style={tw`flex-row px-4 mb-4`}>
+            <TouchableOpacity style={tw`flex-row items-center`}>
+              <Text style={tw`text-black text-xl mr-2`}>❤️</Text>
+              <Text style={tw`text-black`}>1</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+        <View style={tw`px-4 my-4 items-center`}>
+         
+         <TouchableOpacity style={tw`bg-white-300 border p-3 rounded-lg mb-3`}>
+           <Text style={tw`text-black text-center`}>Gửi cooksnap đầu tiên mở hàng!</Text>
+         </TouchableOpacity>
+         <TouchableOpacity style={tw`bg-white-300 border p-3 rounded-lg mb-3 flex-row items-center justify-center`}>
+           <Text style={tw`text-black`}>🔔 Thêm vào Hôm Nay</Text>
+         </TouchableOpacity>
+         <Text style={tw`text-black text-center mb-3`}>ID Công thức: {recipe.id} </Text>
+         <Text style={tw`text-black text-center mb-3`}>Lên sóng vào ngày 22 tháng 3, 2025</Text>
+         <View style={tw`flex-row items-center justify-center mb-4`}>
+         
+           <Text style={tw`text-black`}>Lên sóng bởi : {recipe.author}</Text>
+         </View>
+         <TouchableOpacity style={tw`bg-white-300 border h-10 items-center justify-center w-50  p-2 rounded-lg`}>
+           <Text style={tw`text-black  text-center`}>Kết bạn bếp</Text>
+         </TouchableOpacity>
+
+         <View style={tw`border-t w-full border-gray-500 pt-4 mt-10`}>
+         <Text style={tw`text-black text-l mr-2 px-2 mt-3 mb-2`}>💬 Bình Luận</Text>
+           <View style={tw`flex-row items-center mb-4 bg-gray-100 rounded-full px-2 py-1`}>
+             <Header></Header>
+           <TextInput placeholder="Thêm bình luận..." placeholderTextColor="black" style={tw`text-black flex-1 p-2`} />
+           </View>
+         </View>
+       </View>
 
         {/* Các món có nguyên liệu tương tự */}
         <Text style={tw`text-xl font-bold px-3 mt-5 mb-2`}>Các món có nguyên liệu tương tự</Text>
@@ -110,11 +148,13 @@ const Details: React.FC = () => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => navigation.navigate('Details', { recipe: { ...item, id: Number(item._id) } })}
-              >
+              > 
+                <Image source={{ uri: item.image }} style={tw`w-40 h-30 my-2 rounded-lg px-1`} />
                 <Text style={tw`px-2 text-xl `}>• {item.name}</Text>
                 <Text style={tw`px-2 text-xxl `}>Nguyên liệu: {item.ingredients.join(', ')}</Text>
               </TouchableOpacity>
             )}
+            nestedScrollEnabled={true}
           />
         )}
       </ScrollView>

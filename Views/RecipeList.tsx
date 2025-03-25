@@ -5,15 +5,16 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import axios from 'axios';
 import tw from 'twrnc';
 import { RootStackParamList } from '@/types';
-
-const API_BASE_URL = 'http://localhost:3000/api';
+import { getUserData } from '../models/authHelper';
+import Login from './Login';
+const API_BASE_URL = 'http://192.168.0.103:3000/api';
 
 type SearchViewRouteProp = RouteProp<RootStackParamList, 'RecipeList'>;
 
 const RecipeList: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<SearchViewRouteProp>();
-
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
 
   type Recipe = {
@@ -28,14 +29,29 @@ const RecipeList: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
-    fetchRandomRecipes();
+    const checkAuth = async () => {
+      const {token} = await getUserData();
+      if (!token) {
+        navigation.navigate('Login'); // Chuyển hướng đến trang đăng nhập
+      } else {
+        setIsAuthenticated(true);
+         fetchRandomRecipes();
+      }
+    };
+
+    checkAuth();
   }, []);
+
+  if (!isAuthenticated) {
+    return null; // Không render gì nếu chưa đăng nhập
+  }
 
   // ✅ Hàm lấy danh sách món ăn ngẫu nhiên từ API
   const fetchRandomRecipes = async () => {
     setLoading(true);
     try {
       const response = await axios.get(`${API_BASE_URL}/recipes`);
+      console.log("chanh");
       const randomRecipes = response.data
         .sort(() => 0.5 - Math.random())
         .slice(0, 10)

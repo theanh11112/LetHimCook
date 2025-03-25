@@ -3,13 +3,15 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Text, View, Image, TextInput, TouchableOpacity, Alert, ActivityIndicator, } from 'react-native';
 import tw from 'twrnc';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setUserToken, getUserData, removeUserToken } from '../models/authHelper';
 
 type RootStackParamList = {
   SignUp: undefined;
   HomeScreen: undefined; // Điều hướng đến màn hình chính sau khi đăng nhập
 };
 
-const API_BASE_URL = 'http://localhost:3000/api/user'; // Cập nhật URL phù hợp với backend của bạn
+const API_BASE_URL = 'http://192.168.0.103:3000/api/user';// Cập nhật URL phù hợp với backend của bạn
 
 const Login = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -32,8 +34,13 @@ const Login = () => {
       setPassword('');
 
       // Lưu token để sử dụng sau này (nếu cần)
-      const token = response.data.token;
-      console.log("Token nhận được:", token); // Debug token
+      const { token, user } = response.data;
+      console.log("Token nhận được:", token, user.username); // Debug token
+      await AsyncStorage.setItem('user_token', token);
+      await AsyncStorage.setItem('user_data', JSON.stringify({ 
+        username: user?.username, 
+        userId: user?.userId 
+      }));
 
       // Chuyển đến màn hình chính
       navigation.navigate('HomeScreen');
